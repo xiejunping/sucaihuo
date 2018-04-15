@@ -8,7 +8,7 @@ const users = require('./config/user');
 const showColumn = async (user, pwd) => {
     const data = await model.userLogin({
         username: user,
-        pwd: pwd
+        pwd: pwd,
     });
 
     const data1 = await model.getSignCode(data.cookie);
@@ -23,7 +23,7 @@ const showColumn = async (user, pwd) => {
 const forShowInfo = async () => {
     console.time('forShowInfo');
 
-    const promises = users.map(x => showColumn(x.name, x.pass));
+    const promises = users.map((x) => showColumn(x.name, x.pass));
     for (const promise of promises) {
         const info = await promise;
 
