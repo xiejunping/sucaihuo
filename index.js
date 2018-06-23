@@ -21,7 +21,7 @@ const showColumn = async (user, pwd) => {
     const $ = cheerio.load(data1);
     const key = $('#table_sign').data('key');
 
-    const data2 = await model.signDay(key, data.cookie);
+    return await model.signDay(key, data.cookie);
 
     // console.log(`签到: ${data2}积分`);
     // return `${key}: ${data2}`;
@@ -33,15 +33,15 @@ const forShowInfo = async () => {
     for(const x of users) {
         if (queue.isStart()) {
             queue.push(showColumn, [x.name, x.pass], {
-                'workFinally': function() {
-                    console.log(`${x.name} 签到完成！`)
+                'workResolve': function(str) {
+                    console.log(`${x.name} ${str}`)
                 },
             })
         } else {
             // 队列未启动，启动
             queue.go(showColumn, [x.name, x.pass], {
-                'workFinally': function() {
-                    console.log(`${x.name} 签到完成！`)
+                'workResolve': function(str) {
+                    console.log(`${x.name} ${str}`)
                 },
             }).then(() => {
                 console.log(`队列已启动`)
