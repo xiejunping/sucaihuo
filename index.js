@@ -20,9 +20,7 @@ const showColumn = async (user, pwd) => {
     const data1 = await model.getSignCode(data.cookie);
     const $ = cheerio.load(data1);
     const key = $('#table_sign').data('key');
-
-    console.log(`签到: ${data2}积分`);
-    // return `${key}: ${data2}`;
+    
     return await model.signDay(key, data.cookie);
 
 };
