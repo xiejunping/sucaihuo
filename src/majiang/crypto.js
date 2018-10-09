@@ -1,9 +1,8 @@
 const CryptoJS = require("crypto-js");
 
 // Encrypt
-// const ciphertext = CryptoJS.AES.encrypt('123', 'secret key 123');
-
-// console.log(ciphertext.toString());
+const ciphertext = CryptoJS.AES.encrypt('123456', 'WAPMAN');
+console.log(ciphertext.toString());
 
 // Decrypt
 const bytes = CryptoJS.AES.decrypt('U2FsdGVkX19Go0gRVmnFipB3nNsG33uLLLDHNDT+vZg=', 'WAPMAN');
