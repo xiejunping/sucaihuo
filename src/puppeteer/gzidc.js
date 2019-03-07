@@ -18,19 +18,14 @@ const PW = 'lss198875';
         waitUntil: 'load'
     });
     await page.click('#btn-sign');
-    await page.waitFor(1000);
-    // await page.waitForNavigation({
-    //     waitUntil: 'load'
-    // });
-    // await page.click('#btn-sign')
-    // await page.waitForNavigation({
-    //     waitUntil: 'domcontentloaded'
-    // }) 
-
-    await page.click('body > div.footer.footer-fix > div > p > a:nth-child(1)');
     await page.waitForNavigation({
         waitUntil: 'load'
-    })
-    // await page.click('.ctn-egg-bottom li')
+    });
+
+    await page.click('#btn-sign')
+    await page.waitFor('.ctn-egg') 
+
+    await page.click('#ctn-activity-egg > div.ctn-egg > div.ctn-egg-bottom.clearfix > a:nth-child(1)');
+    await page.waitFor(1000)
     await browser.close();
 })();
