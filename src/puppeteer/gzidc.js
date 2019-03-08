@@ -5,7 +5,7 @@ const PW = 'lss198875';
 
 // 匿名函数自执行
 (async () => {
-    const browser = await puppeteer.launch(); // {headless: false}
+    const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']}); // {headless: false}
     const page = await browser.newPage();
     await page.goto('https://www.gzidc.com/Member/MemberIndex/login.html');
 
@@ -21,7 +21,7 @@ const PW = 'lss198875';
     await page.waitFor(1000);
 
     await page.click('#btn-sign')
-    await page.waitFor('.ctn-egg') 
+    await page.waitFor('.ctn-egg')
 
     await page.click('#ctn-activity-egg > div.ctn-egg > div.ctn-egg-bottom.clearfix > a:nth-child(1)');
     await page.waitFor(1000)

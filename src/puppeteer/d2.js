@@ -1,14 +1,12 @@
 const puppeteer = require('puppeteer');
 
 (async () => {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']});
     const page = await browser.newPage();
     await page.goto('https://daily.fairyever.com/');
 
     await page.click('#app > div.theme-container > aside > ul > li:nth-child(2) > section > ul > li:nth-child(1) > a');
-    await page.waitForNavigation({
-        waitUntil: 'load'
-    });
+    await page.waitFor(1000);
 
     await page.waitForSelector('.component__daily-item')
     const h3 = await page.$$eval('h3', el => el.map(ret => ret.innerText.replace(/#\n/i, '')))
@@ -23,9 +21,9 @@ const puppeteer = require('puppeteer');
             text
         }
     }))
-    
+
     // const b = await page.$$('.component__daily-item')
-    
+
     for (let i = 0; i < obj.length; i++) {
         obj[i] = Object.assign(obj[i], {title: h3[i]})
     }
