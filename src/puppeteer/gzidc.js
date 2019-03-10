@@ -17,13 +17,20 @@ const PW = 'lss198875';
     await page.waitForNavigation({
         waitUntil: 'load'
     });
-    await page.click('#btn-sign');
-    await page.waitFor(1000);
 
-    await page.click('#btn-sign')
-    await page.waitFor('.ctn-egg')
+    try {
+        await page.click('#btn-sign');
+        await page.waitFor(1000);
 
-    await page.click('#ctn-activity-egg > div.ctn-egg > div.ctn-egg-bottom.clearfix > a:nth-child(1)');
-    await page.waitFor(1000)
-    await browser.close();
+        await page.click('#btn-sign');
+        await page.waitFor('.ctn-egg');
+
+        await page.click('#ctn-activity-egg > div.ctn-egg > div.ctn-egg-bottom.clearfix > a:nth-child(1)');
+        await page.waitFor(1000);
+        await browser.close();
+        console.log('签到成功')
+    } catch (err) {
+        console.log('签到错误');
+        await browser.close()
+    }
 })();
