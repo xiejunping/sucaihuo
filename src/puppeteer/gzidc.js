@@ -7,9 +7,10 @@ const PW = 'lss198875';
 (async () => {
     const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']}); // {headless: false}
     const page = await browser.newPage();
-    await page.goto('https://www.gzidc.com/Member/MemberIndex/login.html');
 
     try {
+        await page.goto('https://www.gzidc.com/Member/MemberIndex/login.html');
+
         // 登录
         await page.type('#l-name', AC);
         await page.type('#l-pwd', PW);
