@@ -9,16 +9,16 @@ const PW = 'lss198875';
     const page = await browser.newPage();
     await page.goto('https://www.gzidc.com/Member/MemberIndex/login.html');
 
-    // 登录
-    await page.type('#l-name', AC);
-    await page.type('#l-pwd', PW);
-    await page.click('#login-submit');
-
-    await page.waitForNavigation({
-        waitUntil: 'load'
-    });
-
     try {
+        // 登录
+        await page.type('#l-name', AC);
+        await page.type('#l-pwd', PW);
+        await page.click('#login-submit');
+
+        await page.waitForNavigation({
+            waitUntil: 'load'
+        });
+
         await page.click('#btn-sign');
         await page.waitFor(1000);
 
