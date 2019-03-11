@@ -11,6 +11,7 @@
   "author": "cobbler",
   "license": "MIT",
   "dependencies": {
+    "assert": "^1.4.1",
     "axios": "^0.18.0",
     "cheerio": "^1.0.0-rc.2",
     "crypto-js": "^3.1.9-1",
@@ -20,6 +21,7 @@
     "koa": "^2.5.0",
     "koa-router": "^7.4.0",
     "koa2-cors": "^2.0.5",
+    "mongodb": "^3.1.13",
     "mysql": "^2.16.0",
     "node-fetch": "^2.1.2",
     "promise-queue-plus": "^1.1.0",
