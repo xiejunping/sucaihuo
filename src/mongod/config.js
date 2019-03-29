@@ -1,5 +1,5 @@
 const dev = {
-    url: 'mongodb://jsvue.cn:27017',
+    url: 'mongodb://118.25.36.124:27017',
     database: 'wapman'
 };
 
