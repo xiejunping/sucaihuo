@@ -1,33 +1,12 @@
 const puppeteer = require('puppeteer');
-const MongoClient = require('mongodb').MongoClient;
-
-const {url, database} = require('../mongod/config');
-const client = new MongoClient(url);
-
-const insertData = async data => {
-    return new Promise((resolve, reject) => {
-        client.connect((err, client) => {
-            if (err) reject('数据库连接失败');
-            console.log('数据库已连接');
-
-            const db = client.db(database);
-
-            // insert
-            db.collection('news').insertMany(data, (err, r) => {
-                if (err) reject('插入数据库失败');
-
-                resolve(r);
-                client.close();
-            });
-        });
-    })
-}
+const mongoose = require('../mongod/helper');
 
 (async () => {
     const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']});
     const page = await browser.newPage();
 
     try {
+        console.time('datail');
         await page.goto('https://daily.fairyever.com/');
 
         await page.click('#app > div.theme-container > aside > ul > li:nth-child(2) > section > ul > li:nth-child(1) > a');
@@ -51,10 +30,12 @@ const insertData = async data => {
             obj[i] = Object.assign(obj[i], {title: h3[i]})
         }
 
-        await insertData(obj);
+        await mongoose.insert('news', obj);
         await browser.close();
-        console.log('抓取成功')
+        console.log('抓取成功');
+        console.timeEnd('datail');
     } catch (err) {
-        console.log('抓取错误')
+        console.log('抓取错误');
+        console.timeEnd('datail');
     }
 })();

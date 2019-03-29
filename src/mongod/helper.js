@@ -1,26 +1,28 @@
+const Config = require('./config');
 const MongoClient = require('mongodb').MongoClient;
-const {url, database} = require('./config');
 
 class MongoDB {
     // 单例
     static getInstance () {
-        if (MongoDB.instance) return MongoDB.instance;
-        MongoDB.instance = new MongoDB();
+        if (!MongoDB.instance) MongoDB.instance = new MongoDB(Config);
+        return MongoDB.instance;
     }
 
-    constructor () {
+    constructor ({url, database}) {
+        this.url = url;
+        this.database = database;
         this.client = null; // 多次连接共享
     }
 
     connect () {
         return new Promise((resolve, reject) => {
             if (this.client) resolve(this.client);
-            const client = new MongoClient(url);
+            const client = new MongoClient(this.url, { useNewUrlParser: true });
             client.connect((err, client) => {
                 err && reject(err);
                 console.log('Connected Mongodb to Server');
 
-                this.client = client.db(database);
+                this.client = client.db(this.database);
                 resolve(this.client);
             });
         })
