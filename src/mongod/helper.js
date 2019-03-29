@@ -21,7 +21,6 @@ class MongoDB {
             client.connect((err, pool) => {
                 err && reject(err);
                 console.log('Connected Mongodb to Server');
-
                 this.client = pool.db(this.database);
                 resolve(this.client);
             });

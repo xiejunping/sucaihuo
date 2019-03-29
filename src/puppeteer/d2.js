@@ -30,6 +30,7 @@ const mongoose = require('../mongod/helper');
             obj[i] = Object.assign(obj[i], {title: h3[i]})
         }
 
+        console.log(mongoose);
         await mongoose.insert('news', obj);
         await browser.close();
         console.log('抓取成功');
