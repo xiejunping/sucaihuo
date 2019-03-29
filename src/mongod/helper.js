@@ -18,11 +18,11 @@ class MongoDB {
         return new Promise((resolve, reject) => {
             if (this.client) resolve(this.client);
             const client = new MongoClient(this.url, { useNewUrlParser: true });
-            client.connect((err, client) => {
+            client.connect((err, pool) => {
                 err && reject(err);
                 console.log('Connected Mongodb to Server');
 
-                this.client = client.db(this.database);
+                this.client = pool.db(this.database);
                 resolve(this.client);
             });
         })
