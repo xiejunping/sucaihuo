@@ -17,7 +17,7 @@ class MongoDB {
     connect () {
         return new Promise((resolve, reject) => {
             if (this.client) resolve(this.client);
-            const client = new MongoClient(this.url, { useNewUrlParser: true });
+            const client = new MongoClient(this.url);
             client.connect((err, client) => {
                 err && reject(err);
                 console.log('Connected Mongodb to Server');
@@ -35,6 +35,8 @@ class MongoDB {
                     err && reject(err);
                     resolve(rs);
                 });
+            }).catch(err => {
+                console.log(err);
             });
         })
     }
