@@ -19,7 +19,6 @@ class MongoDB {
             if (this.client) resolve(this.client);
             const client = new MongoClient(url, { useNewUrlParser: true });
             client.connect((err, pool) => {
-                console.log(err, pool)
                 if (err) reject(err);
                 else {
                     console.log('Connected Mongodb to Server');
