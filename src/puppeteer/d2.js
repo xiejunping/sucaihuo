@@ -31,11 +31,12 @@ const mongoose = require('../mongod/helper');
         }
 
         await mongoose.insert('news', obj);
-        await browser.close();
         console.log('抓取成功');
         console.timeEnd('datail');
+        await browser.close();
     } catch (err) {
         console.log('抓取错误');
         console.timeEnd('datail');
+        await browser.close();
     }
 })();
