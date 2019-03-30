@@ -35,7 +35,7 @@ const mongoose = require('../mongod/helper');
         await browser.close();
         console.timeEnd('daily');
     } catch (err) {
-        console.log('抓取错误');
+        console.log('抓取错误:', err);
         await browser.close();
         console.timeEnd('daily');
     }
