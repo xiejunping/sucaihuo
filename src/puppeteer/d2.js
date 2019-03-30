@@ -32,11 +32,11 @@ const mongoose = require('../mongod/helper');
 
         await mongoose.insert('news', obj);
         console.log('抓取成功');
-        console.timeEnd('daily');
         await browser.close();
+        console.timeEnd('daily');
     } catch (err) {
         console.log('抓取错误');
-        console.timeEnd('daily');
         await browser.close();
+        console.timeEnd('daily');
     }
 })();
