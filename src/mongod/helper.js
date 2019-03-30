@@ -33,6 +33,7 @@ class MongoDB {
         return new Promise((resolve, reject) => {
             this.connect(this.url, this.database).then(db => {
                 db.collection(tableName).insertMany(rowInfo, (err, rs) => {
+                    console.log(err);
                     if (err) reject(err);
                     else resolve(rs);
                 });
