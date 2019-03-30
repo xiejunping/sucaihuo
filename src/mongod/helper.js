@@ -21,7 +21,7 @@ class MongoDB {
             client.connect((err, pool) => {
                 if (err) reject(err);
                 else {
-                    console.log('Connected Mongodb to Server');
+                    // console.log('Connected Mongodb to Server');
                     this.client = pool.db(dbName);
                     resolve(this.client);
                 }
@@ -33,12 +33,11 @@ class MongoDB {
         return new Promise((resolve, reject) => {
             this.connect(this.url, this.database).then(db => {
                 db.collection(tableName).insertMany(rowInfo, (err, rs) => {
-                    console.log(err);
                     if (err) reject(err);
                     else resolve(rs);
                 });
             }).catch(err => {
-                console.log(err);
+                reject(err);
             });
         })
     }

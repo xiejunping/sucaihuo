@@ -30,13 +30,15 @@ const mongoose = require('../mongod/helper');
             obj[i] = Object.assign(obj[i], {title: h3[i]})
         }
 
-        await mongoose.insert('news', obj);
+        const rs = await mongoose.insert('news', obj);
+        console.log(rs);
         console.log('抓取成功');
         await browser.close();
         console.timeEnd('daily');
     } catch (err) {
-        console.log('抓取错误:', err);
+        console.log('抓取错误');
         await browser.close();
         console.timeEnd('daily');
+        process.exit(0);
     }
 })();
