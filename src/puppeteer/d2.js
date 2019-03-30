@@ -6,7 +6,7 @@ const mongoose = require('../mongod/helper');
     const page = await browser.newPage();
 
     try {
-        console.time('datail');
+        console.time('daily');
         await page.goto('https://daily.fairyever.com/');
 
         await page.click('#app > div.theme-container > aside > ul > li:nth-child(2) > section > ul > li:nth-child(1) > a');
@@ -32,11 +32,11 @@ const mongoose = require('../mongod/helper');
 
         await mongoose.insert('news', obj);
         console.log('抓取成功');
-        console.timeEnd('datail');
+        console.timeEnd('daily');
         await browser.close();
     } catch (err) {
         console.log('抓取错误');
-        console.timeEnd('datail');
+        console.timeEnd('daily');
         await browser.close();
     }
 })();
