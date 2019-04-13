@@ -43,6 +43,7 @@ const baoCan = async (account, password, type) => {
             console.log(`${dateStr}${account}${name}报餐成功！`)
         } else {
             await browser.close();
+            await Mailer.sendMail('xiejunping@caohua.com', '定时任务发送邮件', `<b>${dateStr}${account}${name}已报餐！</b>`);
             console.log(`${dateStr}${account}${name}已报餐！`)
         }
     } catch (err) {
