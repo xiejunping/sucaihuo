@@ -1,4 +1,6 @@
 const puppeteer = require('puppeteer');
+const dayjs = require('dayjs');
+const Mailer = require('../mail/mailer');
 const users = [
     {
         name: '18163680885',
@@ -23,7 +25,8 @@ const baoCan = async (account, password, type) => {
         });
 
         await page.waitFor(2000);
-        let selector, name;
+        let selector, name, dateStr;
+        dateStr = dayjs().format('YYYY-MM-DD HH:mm:ss dddd')
         if (type === 'lunch') {
             name = '中餐';
             selector = '#main-content > div.content.oa-content > div:nth-child(6) > div:nth-child(3) > div > div.el-card__body > div.gzcyd_btn > div:nth-child(1) > button'
@@ -38,14 +41,15 @@ const baoCan = async (account, password, type) => {
             await btn.click(selector);
             await page.waitForResponse('http://oa.caohua.com/mealOrder/book');
             await browser.close();
-            console.log(`${account}${name}报餐成功！`)
+            console.log(`${dateStr}${account}${name}报餐成功！`)
         } else {
             await browser.close();
-            console.log(`${account}${name}已报餐！`)
+            console.log(`${dateStr}${account}${name}已报餐！`)
         }
     } catch (err) {
         await browser.close();
-        console.log(`${account}${name}报餐失败%`)
+        await Mailer.sendMail('xiejunping@caohua.com', '定时任务发送邮件', `<b>${dateStr}${account}${name}报餐失败%</b>`);
+        console.log(`${dateStr}${account}${name}报餐失败%`)
     }
     console.timeEnd('forShowInfo');
 }
