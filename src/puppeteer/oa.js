@@ -4,7 +4,7 @@ const Mailer = require('../mail/mailer');
 const users = [
     {
         name: '18163680885',
-        pass: '88888888'
+        pass: 'Zwm198875'
     }
 ];
 
