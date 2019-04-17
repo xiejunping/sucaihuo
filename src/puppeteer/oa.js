@@ -13,6 +13,7 @@ const baoCan = async (account, password, type) => {
     const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']});
     const page = await browser.newPage();
     const dateStr = dayjs().format('YYYY-MM-DD HH:mm:ss dddd => ');
+    let name = type === 'lunch' ? '中餐' : '晚餐';
     try {
         await page.goto('http://oa.caohua.com/html/#/login');
 
@@ -25,12 +26,10 @@ const baoCan = async (account, password, type) => {
         });
 
         await page.waitFor(2000);
-        let selector, name;
+        let selector;
         if (type === 'lunch') {
-            name = '中餐';
             selector = '#main-content > div.content.oa-content > div:nth-child(6) > div:nth-child(3) > div > div.el-card__body > div.gzcyd_btn > div:nth-child(1) > button'
         } else {
-            name = '晚餐';
             selector = '#main-content > div.content.oa-content > div:nth-child(6) > div:nth-child(3) > div > div.el-card__body > div.gzcyd_btn > div:nth-child(2) > button'
         }
         await page.waitFor('.gzcyd_btn button');
