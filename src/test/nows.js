@@ -1,5 +1,6 @@
 const fetch = require('node-fetch');
 const cheerio = require('cheerio');
+const schedule = require('node-schedule');
 const mongoose = require('../mongod/helper');
 
 const init = async () => {
@@ -15,24 +16,28 @@ const init = async () => {
 }
 
 const paChong = async () => {
+    setInterval(async () => {
+        await httpRep()
+    }, 500)
+}
+
+const httpRep = async () => {
     const response = await fetch('http://www.nows.fun')
     const htmlString = response.body._outBuffer.toString()
 
     const $ = cheerio.load(htmlString)
     const title = $('#sentence').text()
-
     try {
-        const rs = await mongoose.insert('nows', {title});
+        if (!title) return
+        const rs = await mongoose.insert('nows', [{title}]);
         console.log(`"${title}" 已入库`);
     } catch (err) {
-        console.log(err)
+        // console.log(`"${title}" 重复`)
     }
 }
 
 // 验证同时会不会一样
 // init()
-
+  
 // 跑库
-setTimeout(() => {
-    paChong()
-}, 500)
+paChong()
