@@ -3,7 +3,8 @@
 const fs = require('fs');
 const path = require('path');
 const model = require('../../http/radio');
-
+const { cookie } = require('../../data/radio_token');
+const defaultCookie = `az_sess_=88cabce73f41f46dd934fbb6795327b87d59b2fe`;
 /**
  * 日期格式化
  * @param date
@@ -33,17 +34,19 @@ const formatDate = (date, fmt) => {
 
 const refreshToken = async () => {
     console.time('task-token');
-    const cookie = 'az_sess_=c8481695ad3aef0bf69507cf5f764d76064526f3';
-    const data = await model.getSignCode(cookie);
+    let cookies = defaultCookie;
+    // console.log('cookie:', cookie)
+    // if (cookie !== 'undefined') cookies = cookie; // 动态库复盖
+    const data = await model.getSignCode(cookies);
     console.log(data.cookie)
-    const str = `module.exports = {
-    cookie: '${data.cookie}'
-}`
-
-    fs.writeFile(path.resolve(__dirname, '../../data/radio_token.js'), str, error => {
-        if (error) return console.log("写入文件失败,原因是" + error.message);
-        console.log('写入成功', formatDate(new Date(), 'yyyy-MM-dd hh:mm:ss'));
-    });
+    if (data.cookie) {
+        const str = `module.exports = { cookie: '${data.cookie}' }`
+        // 写入文件
+        fs.writeFile(path.resolve(__dirname, '../../data/radio_token.js'), str, error => {
+            if (error) return console.log("写入文件失败,原因是" + error.message);
+            console.log('写入成功', formatDate(new Date(), 'yyyy-MM-dd hh:mm:ss'));
+        });
+    } else console.log('获取token失败')
 
     console.timeEnd('task-token');
 };
