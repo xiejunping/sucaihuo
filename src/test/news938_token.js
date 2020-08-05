@@ -3,8 +3,8 @@
 const fs = require('fs');
 const path = require('path');
 const model = require('../../http/radio');
-const { cookie } = require('../../data/radio_token');
-const defaultCookie = `az_sess_=88cabce73f41f46dd934fbb6795327b87d59b2fe`;
+// const { cookie } = require('../../data/radio_token');
+// const defaultCookie = 'az_sess_=5bca269702ceebf4a76594f09fd908b62c96bbdc';
 /**
  * 日期格式化
  * @param date
@@ -34,10 +34,10 @@ const formatDate = (date, fmt) => {
 
 const refreshToken = async () => {
     console.time('task-token');
-    let cookies = defaultCookie;
+    // let cookies = defaultCookie;
     // console.log('cookie:', cookie)
     // if (cookie !== 'undefined') cookies = cookie; // 动态库复盖
-    const data = await model.getSignCode(cookies);
+    const data = await model.getSignInfo('az_sess_=3f8ea4318c167e6e40c7f87a15a8f6e9cde5f0d0');
     console.log(data.cookie)
     if (data.cookie) {
         const str = `module.exports = { cookie: '${data.cookie}' }`

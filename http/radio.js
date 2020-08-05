@@ -36,6 +36,17 @@ const Model = {
             this.handleError(err);
         }
     },
+    async getSignInfo(cookies) {
+        const Api = new APIClient({
+            url: 'http://wx.hnradio.com/user/getSignInfo?key=ed67d43813c2f54feb585aebc2351c3f',
+            cookies: cookies,
+        });
+        try {
+            return res = await Api.reqWX();
+        } catch (err) {
+            this.handleError(err);
+        }
+    },
     /**
      * 请求错误后提示
      * @param {Object} error
