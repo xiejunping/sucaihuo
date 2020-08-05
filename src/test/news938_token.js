@@ -37,7 +37,7 @@ const refreshToken = async () => {
     // let cookies = defaultCookie;
     // console.log('cookie:', cookie)
     // if (cookie !== 'undefined') cookies = cookie; // 动态库复盖
-    const data = await model.getSignInfo('az_sess_=3f8ea4318c167e6e40c7f87a15a8f6e9cde5f0d0');
+    const data = await model.getSignInfo('az_sess_=2025ca5727dca7bab62b768aae821b1a3954b518');
     console.log(data.cookie)
     if (data.cookie) {
         const str = `module.exports = { cookie: '${data.cookie}' }`
