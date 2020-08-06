@@ -3,42 +3,13 @@
 const fs = require('fs');
 const path = require('path');
 const model = require('../../http/radio');
-// const { cookie } = require('../../data/radio_token');
-// const defaultCookie = 'az_sess_=5bca269702ceebf4a76594f09fd908b62c96bbdc';
-/**
- * 日期格式化
- * @param date
- * @param fmt
- * @returns {*}
- */
-const formatDate = (date, fmt) => {
-    const o = {
-        'M+': date.getMonth() + 1,
-        'd+': date.getDate(),
-        'h+': date.getHours(),
-        'm+': date.getMinutes(),
-        's+': date.getSeconds(),
-        'q+': Math.floor((date.getMonth() + 3) / 3),
-        S: date.getMilliseconds()
-    }
-    if (/(y+)/.test(fmt)) {
-        fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length))
-    }
-    for (var k in o) {
-        if (new RegExp('(' + k + ')').test(fmt)) {
-        fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : (('00' + o[k]).substr(('' + o[k]).length)))
-        }
-    }
-    return fmt
-}
+const { formatDate } = require('../../common/utils')
+// const { cookie } = require('../../data/radio_token'); // 动态库
+const cookie = 'az_sess_=7bc9d07b9d396cde9bd72df960ef9ae8e44bc4b5';
 
 const refreshToken = async () => {
     console.time('task-token');
-    // let cookies = defaultCookie;
-    // console.log('cookie:', cookie)
-    // if (cookie !== 'undefined') cookies = cookie; // 动态库复盖
-    const data = await model.getSignCode('az_sess_=7a55dffaeff53417cb2eb479fc13640674a0a631');
-    console.log(data.cookie)
+    const data = await model.getSignCode(cookie);
     if (data.cookie) {
         const str = `module.exports = { cookie: '${data.cookie}' }`
         // 写入文件
