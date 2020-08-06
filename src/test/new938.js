@@ -13,7 +13,7 @@ const signTask = async () => {
     const hasSign = $('#sign-txt').html();
     if ('点击签到' === hasSign) {
         const singKey = await model.signDay(cookie);
-        console.log(singKey, formatDate(new Date(), 'yyyy-MM-dd hh:mm:ss'));
+        console.log(singKey, formatDate(new Date(), 'yyyy-MM-dd hh:mm:ss.S'));
     }
 
     console.timeEnd('task');

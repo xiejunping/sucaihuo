@@ -15,7 +15,7 @@ const refreshToken = async () => {
         // 写入文件
         fs.writeFile(path.resolve(__dirname, '../../data/radio_token.js'), str, error => {
             if (error) return console.log("写入文件失败,原因是" + error.message);
-            console.log('写入成功', formatDate(new Date(), 'yyyy-MM-dd hh:mm:ss'));
+            console.log('写入成功', formatDate(new Date(), 'yyyy-MM-dd hh:mm:ss.S'));
         });
     } else console.log('获取token失败')
 
