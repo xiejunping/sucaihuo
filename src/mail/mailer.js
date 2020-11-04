@@ -22,8 +22,10 @@ class Mailer {
       this.Mailer.sendMail(option, (error, info) => {
         if (error) {
           reject(error);
+		console.log('error')
         } else {
           resolve(info)
+		console.log('send mail')
         }
       })
     });

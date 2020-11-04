@@ -54,6 +54,58 @@ class APIClient {
     }
 
     /**
+     * plain text or html by weixin
+     * @return {String} text
+     */
+    async htmlWX() {
+        const cookie = {}
+        const { Headers } = fetch;
+        const headers = new Headers({
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'User-Agent': 'Mozilla/5.0 (Linux; Android 10; GM1900 Build/QKQ1.190716.003; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/77.0.3865.120 MQQBrowser/6.2 TBS/045227 Mobile Safari/537.36 MMWEBID/6040 MicroMessenger/7.0.17.1720(0x27001137) Process/tools WeChat/arm64 NetType/WIFI',
+            'Cookie': this.cookies,
+        });
+        const response = await fetch(this.url, { headers });
+        if (response.status !== 200) throw new Error(response.statusText);
+        if (response.status !== 200) throw new Error(response.statusText);
+        for (const header of response.headers) {
+            const index = header.findIndex((ret) => ret === 'set-cookie');
+            if (index > -1) {
+                const [, value] = header;
+                cookie.cookie = await this.setCookie(value);
+                break;
+            }
+        }
+        return Object.assign({}, { html: await response.text() }, cookie);
+    }
+
+    /**
+     * post with normal
+     * @return {Json} res
+     */
+    async reqWX() {
+        const cookie = {}
+        const { Headers } = fetch;
+        const headers = new Headers({
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'User-Agent': 'Mozilla/5.0 (Linux; Android 10; GM1900 Build/QKQ1.190716.003; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/77.0.3865.120 MQQBrowser/6.2 TBS/045227 Mobile Safari/537.36 MMWEBID/6040 MicroMessenger/7.0.17.1720(0x27001137) Process/tools WeChat/arm64 NetType/WIFI',
+            'Cookie': this.cookies,
+        });
+        const response = await fetch(this.url, { headers });
+        if (response.status !== 200) throw new Error(response.statusText);
+
+        for (const header of response.headers) {
+            const index = header.findIndex((ret) => ret === 'set-cookie');
+            if (index > -1) {
+                const [, value] = header;
+                cookie.cookie = await this.setCookie(value);
+                break;
+            }
+        }
+        return Object.assign({}, await response.json(), cookie);
+    }
+
+    /**
      * return text or html
      * @return {String} text
      */
