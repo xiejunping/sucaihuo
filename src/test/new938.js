@@ -6,7 +6,7 @@ const { cookie } = require('../../data/radio_token');
 const { formatDate } = require('../../common/utils')
 
 const signTask = async () => {
-    console.time('task');
+    // console.time('task');
     const data = await model.getSignCode(cookie);
     const $ = cheerio.load(data.html, {decodeEntities: false});
 
@@ -15,8 +15,7 @@ const signTask = async () => {
         const singKey = await model.signDay(cookie);
         console.log(singKey, formatDate(new Date(), 'yyyy-MM-dd hh:mm:ss.S'));
     }
-
-    console.timeEnd('task');
+    // console.timeEnd('task');
 };
 
 // 执行签到
