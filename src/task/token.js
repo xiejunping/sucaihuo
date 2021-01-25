@@ -1,12 +1,14 @@
 const schedule = require('node-schedule');
 const dayjs = require('dayjs');
-const new938 = require('../test/new938')
+const news938 = require('../test/news938_token')
 
 const scheduleCronstyle = () => {
 	schedule.scheduleJob('0 */1 * * * *', () => {
 	console.log('scheduleCronstyle:' + dayjs().format('YYYY-MM-DD dddd HH:mm:ss.SSS A'))
-	new938()
+	news938()
 	})
 };
 
-scheduleCronstyle();
+// scheduleCronstyle();
+news938();
+console.log('handle:' + dayjs().format('YYYY-MM-DD dddd HH:mm:ss.SSS A'));
