@@ -5,7 +5,7 @@ const path = require('path');
 const model = require('../../http/radio');
 const { formatDate } = require('../../common/utils')
 // const { cookie } = require('../../data/radio_token'); // 动态库
-const cookie = 'az_sess_=43a0b79fcbaebd3e0786dacddb3d57c4e1268dee';
+const cookie = 'az_sess_=731780f5573e2bb62d6d6606cc24538b598ce50b';
 
 const refreshToken = async () => {
     console.time('task-token');
@@ -23,4 +23,5 @@ const refreshToken = async () => {
 };
 
 // 执行签到
-refreshToken();
+module.exports =  refreshToken;
+
