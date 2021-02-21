@@ -4,8 +4,8 @@ const fs = require('fs');
 const path = require('path');
 const model = require('../../http/radio');
 const { formatDate } = require('../../common/utils')
-const { cookie } = require('../../data/radio_token'); // 动态库
-// const cookie = 'az_sess_=731780f5573e2bb62d6d6606cc24538b598ce50b';
+// const { cookie } = require('../../data/radio_token'); // 动态库
+const cookie = 'az_sess_=731780f5573e2bb62d6d6606cc24538b598ce50b';
 
 const refreshToken = async () => {
     console.time('task-token');
