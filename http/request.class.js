@@ -65,8 +65,9 @@ class APIClient {
             'User-Agent': 'Mozilla/5.0 (Linux; Android 10; GM1900 Build/QKQ1.190716.003; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/77.0.3865.120 MQQBrowser/6.2 TBS/045227 Mobile Safari/537.36 MMWEBID/6040 MicroMessenger/7.0.17.1720(0x27001137) Process/tools WeChat/arm64 NetType/WIFI',
             'Cookie': this.cookies,
         });
+        // console.log(headers)
         const response = await fetch(this.url, { headers });
-        if (response.status !== 200) throw new Error(response.statusText);
+        // console.log(response.headers)
         if (response.status !== 200) throw new Error(response.statusText);
         for (const header of response.headers) {
             const index = header.findIndex((ret) => ret === 'set-cookie');
